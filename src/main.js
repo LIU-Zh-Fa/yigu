@@ -7,6 +7,8 @@ import axios from 'axios';
 
 Vue.prototype.$axios = axios;
 import Header from "@/common/header/index.vue"
+import MyMask from "@/common/mask/index.vue"
+Vue.component("MyMask",MyMask);
 Vue.component("Header",Header);
 Vue.config.productionTip = false
 Vue.use(mintUI);

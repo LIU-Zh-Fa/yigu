@@ -5,18 +5,18 @@ import Type from './type'
 import Card from './card'
 import Shopcar from './shopcar'
 import Mine from './mine'
-import Mask from './mask'
+import MyMask from './mask'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  moudles: {
+  modules: {
     Home,
     Type,
     Card,
     Shopcar,
     Mine,
-    Mask
+    MyMask
   }
  
 })

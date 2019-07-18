@@ -2,11 +2,13 @@
   <div class="header">
       <i @click="back" class="iconfont icon-jiantou3"></i>
       <h2>{{title}}</h2>
-      <u class="iconfont icon-gengduo2"></u>
+      <u class="iconfont icon-gengduo2" @click="openMaster"></u>
+      <MyMask />
   </div>
 </template>
 
 <script>
+import Vuex from 'vuex';
 export default {
   props: {
     title: {
@@ -17,12 +19,15 @@ export default {
   methods: {
       back(){
           this.$router.back()
+      },
+      openMaster(){
+          this.$store.dispatch("MyMask/openMask");
       }
   },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 $color:rgb(255, 255, 255);
 
 .header{
@@ -44,7 +49,7 @@ $color:rgb(255, 255, 255);
     i{
         position: absolute;
         left: .3rem;
-        font-size: .44rem;
+        font-size: .35rem;
     }
     u{
         position: absolute;
