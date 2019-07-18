@@ -1,6 +1,6 @@
 <template>
   <div class="type">
-   type
+   桃子
   </div>
 </template>
 
