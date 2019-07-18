@@ -1,6 +1,6 @@
 <template>
   <div class="shopcar">
-   shopcar
+      <Header title="购物车"/>
   </div>
 </template>
 
