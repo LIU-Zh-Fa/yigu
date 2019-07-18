@@ -93,6 +93,5 @@ export default {
 #footer>ul>li>i{
     font-size: .44rem;
     text-align: center;
-    font-weight: 600
 }
 </style>

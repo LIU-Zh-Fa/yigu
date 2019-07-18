@@ -6,6 +6,8 @@ import mintUI from "mint-ui";
 import axios from 'axios';
 
 Vue.prototype.$axios = axios;
+import Header from "@/common/header/index.vue"
+Vue.component("Header",Header);
 Vue.config.productionTip = false
 Vue.use(mintUI);
 
