@@ -1,7 +1,6 @@
 <template>
-  <div class="type">
-    <Header></Header>
-   桃子
+  <div class="shopcar">
+   shopcar
   </div>
 </template>
 
@@ -9,7 +8,7 @@
 
 
 export default {
-  name: 'type',
+  name: 'shopcar',
   components: {
    
   }

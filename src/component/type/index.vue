@@ -1,7 +1,6 @@
 <template>
   <div class="type">
-    <Header></Header>
-   桃子
+   type
   </div>
 </template>
 
