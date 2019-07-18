@@ -1,5 +1,6 @@
 <template>
   <div class="type">
+    <Header></Header>
    桃子
   </div>
 </template>

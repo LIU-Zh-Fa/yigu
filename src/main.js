@@ -3,7 +3,8 @@ import App from './App.vue'
 import router from './router/index.js'
 import store from './store/index.js'
 import mintUI from "mint-ui";
-
+import Header from "@/common/header/index.vue"
+Vue.component("Header",Header);
 Vue.config.productionTip = false
 Vue.use(mintUI);
 
