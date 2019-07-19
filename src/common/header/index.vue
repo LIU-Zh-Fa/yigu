@@ -2,8 +2,8 @@
   <div class="header">
       <i @click="back" class="iconfont icon-jiantou3"></i>
       <h2>{{title}}</h2>
-      <u class="iconfont icon-gengduo2" @click="openMaster"></u>
-      <MyMask />
+      <u class="iconfont icon-gengduo2" @click="openMask"></u>
+      <MyMask ref="mymask"/>
   </div>
 </template>
 
@@ -20,8 +20,8 @@ export default {
       back(){
           this.$router.back()
       },
-      openMaster(){
-          this.$store.dispatch("MyMask/openMask");
+      openMask(){
+          this.$refs.mymask.openMask();
       }
   },
 };

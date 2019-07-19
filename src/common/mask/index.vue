@@ -28,14 +28,17 @@
 <script>
 import Vuex from 'vuex';
 export default {
-    computed:{
-        ...Vuex.mapState({
-            showFlag:state=>state.MyMask.showFlag,
-        })
+    data(){
+        return{
+            showFlag: false
+        }
     },
     methods:{
         closeMask(){
-            this.$store.dispatch("MyMask/closeMask");
+            this.showFlag = false
+        },
+        openMask(){
+            this.showFlag = true
         }
     }
 }
