@@ -1,14 +1,13 @@
 <template>
   <div class="header">
-      <i @click="back" class="iconfont icon-jiantou3"></i>
+      <v-touch @tap="back" class="iconfont icon-jiantou3" tag="i"></v-touch>
       <h2>{{title}}</h2>
-      <u class="iconfont icon-gengduo2" @click="openMask"></u>
+      <v-touch tag="u" class="iconfont icon-gengduo2" @tap="openMask"></v-touch>
       <MyMask ref="mymask"/>
   </div>
 </template>
 
 <script>
-import Vuex from 'vuex';
 export default {
   props: {
     title: {

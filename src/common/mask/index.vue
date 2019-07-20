@@ -1,5 +1,5 @@
 <template>
-    <div class="mymask" v-show="showFlag" @click="closeMask">
+    <v-touch tag="div" class="mymask" v-show="showFlag" @tap="closeMask">
         <ul class="menu">
             <router-link to="/home" tag="li">
                 <i class="iconfont">&#xe626;</i>
@@ -23,10 +23,9 @@
             </router-link>
         </ul>
         <div class="jiao"></div>
-    </div>
+    </v-touch>
 </template>
 <script>
-import Vuex from 'vuex';
 export default {
     data(){
         return{
