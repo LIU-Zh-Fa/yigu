@@ -11,6 +11,9 @@ import detail from "@/router/detail"
 import wc from "@/router/wc"
 
 
+//二级路由
+import searchgoods from "@/router/type/searchgoods"
+
 Vue.use(Router)
 export default new Router({
   mode: 'history',
@@ -26,6 +29,9 @@ export default new Router({
     mine,
     detail,
     wc,
+    
+
+    searchgoods,
     {
       path:"**",
       redirect:"/home"

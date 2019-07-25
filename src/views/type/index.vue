@@ -1,17 +1,22 @@
 <template>
-  <div class="type">
-    <Header></Header>
-   桃子
+  <div class="typeBox">
+    <Search v-if="this.$store.state.type.searchFlag"/>
+    <Typelist v-if="!this.$store.state.type.searchFlag"/>
   </div>
 </template>
-
 <script>
-
-
+import Search from "@/component/type/search";
+import Typelist from "@/component/type/typelist";
 export default {
-  name: 'type',
   components: {
-   
+    Search,
+    Typelist
   }
-}
+};
 </script>
+<style lang="scss" scoped>
+.typeBox{
+  height: 100%;
+}
+</style>
+

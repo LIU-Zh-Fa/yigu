@@ -6,7 +6,7 @@ fieldset{ border:none; }
 
 img{display: block;}
 
-address, caption, cite, code, dfn, th, var { font-style:normal; font-weight:normal; }
+address, caption, cite, code, dfn, th, var ,i{ font-style:normal; font-weight:normal; }
 u,strong{
     text-decoration :none
 }

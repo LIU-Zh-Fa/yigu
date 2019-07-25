@@ -8,7 +8,6 @@ import VueTouch from "vue-touch";
 
 import LazyLoad from 'vue-lazyload'
 Vue.prototype.$axios = axios;
-import Header from "@/common/header/index.vue"
 import MyMask from "@/common/mask/index.vue"
 Vue.use(LazyLoad, {
   error: require('@/component/home/img/Zt0Xh89bWUACqFqi.jpg'),  //错误的时候显示图片
@@ -16,11 +15,21 @@ Vue.use(LazyLoad, {
   attempt: 1  // 每次加载几张
 })
 Vue.component("MyMask",MyMask);
+import Header from "@/common/header/index.vue";
+
+import BScroll from "@/common/BScroll";
+
+import Loadmore from "@/common/Loadmore";
+
+
 Vue.component("Header",Header);
 
 Vue.config.productionTip = false
 Vue.use(mintUI);
 Vue.use(VueTouch, {name: 'v-touch'});
+Vue.component("BScroll",BScroll);
+Vue.component("Loadmore",Loadmore);
+
 
 new Vue({
   router,
