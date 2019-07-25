@@ -1,5 +1,5 @@
 <template>
-    <div class="mymask" v-show="showFlag" @tap.stop="closeMask" @touchmove.prevent @mousewheel.prevent>
+    <div class="mymask" v-show="showFlag" @click="closeMask" @touchmove.prevent @mousewheel.prevent>
         <ul class="menu">
             <router-link to="/home" tag="li">
                 <i class="iconfont">&#xe626;</i>

@@ -2,7 +2,7 @@
   <div class="header">
       <v-touch @tap="back" class="iconfont icon-jiantou3" tag="i"></v-touch>
       <h2>{{title}}</h2>
-      <v-touch tag="u" class="iconfont icon-gengduo2" @tap="openMask"></v-touch>
+      <u class="iconfont icon-gengduo2" @click="openMask"></u>
       <MyMask ref="mymask"/>
   </div>
 </template>
