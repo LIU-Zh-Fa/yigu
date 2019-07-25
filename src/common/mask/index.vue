@@ -1,16 +1,16 @@
 <template>
-    <v-touch tag="div" class="mymask" v-show="showFlag" @tap="closeMask">
+    <div class="mymask" v-show="showFlag" @tap.stop="closeMask" @touchmove.prevent @mousewheel.prevent>
         <ul class="menu">
             <router-link to="/home" tag="li">
                 <i class="iconfont">&#xe626;</i>
                 <span>首页</span>
             </router-link>
-            <router-link to="/type" tag="li">
-                <i class="iconfont">&#xe626;</i>
+            <router-link to="/wc/type" tag="li">
+                <i class="iconfont">&#xe60d;</i>
                 <span>分类</span>
             </router-link>
             <router-link to="/match" tag="li">
-                <i class="iconfont">&#xe626;</i>
+                <i class="iconfont">&#xe616;</i>
                 <span>宅配</span>
             </router-link>
             <router-link to="/shopcar" tag="li">
@@ -23,7 +23,7 @@
             </router-link>
         </ul>
         <div class="jiao"></div>
-    </v-touch>
+    </div>
 </template>
 <script>
 export default {

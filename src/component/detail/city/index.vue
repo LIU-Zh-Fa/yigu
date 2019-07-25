@@ -1,5 +1,5 @@
 <template>
-    <div class="city" v-if="showFlag">
+    <div class="city" v-if="showFlag" @touchmove.prevent @mousewheel.prevent>
         <v-touch tag="div" class="mask_top" @tap="closeCity"></v-touch>
         <div class="city_info">
             <div class="city_top">
@@ -17,9 +17,9 @@
 </template>
 <script>
 import Vuex from 'vuex';
-import BScroll from 'better-scroll';
 import CityList from './citylist'
 export default {
+    props:["updateCity"],
     data(){
         return {
             showFlag: false
@@ -37,6 +37,7 @@ export default {
         }),
         saveCity(){
             this.$store.dispatch("City/saveCity");
+            this.updateCity();
             this.closeCity();
         },
         closeCity(){

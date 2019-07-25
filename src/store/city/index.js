@@ -1,12 +1,13 @@
 import axios from 'axios';
 export default {
     state: {
+        areaList: window.sessionStorage.areaList ? JSON.parse(window.sessionStorage.areaList) : {},
         provinceList: window.sessionStorage.provinceList ? JSON.parse(window.sessionStorage.provinceList) : [],
         cityList: window.sessionStorage.cityList ? JSON.parse(window.sessionStorage.cityList) : {}, 
         countyList: window.sessionStorage.countyList ? JSON.parse(window.sessionStorage.countyList) : {},
         provkey: '',
         citykey: '',
-        countykey: ''
+        countykey: '',
     },
     mutations: {
         getArea(state,param){
@@ -37,11 +38,12 @@ export default {
             window.sessionStorage.provinceList = JSON.stringify(state.provinceList);
             window.sessionStorage.cityList = JSON.stringify(state.cityList);
             window.sessionStorage.countyList = JSON.stringify(state.countyList);
+            window.sessionStorage.areaList = JSON.stringify(param);
         },
         initCitykey(state){
-            state.provkey = window.sessionStorage.provkey || '010000000';
-            state.citykey = window.sessionStorage.citykey || '010100000';
-            state.countykey = window.sessionStorage.countykey || '010101000';
+            state.provkey = window.sessionStorage.provkey ? JSON.parse(window.sessionStorage.provkey).key : '010000000';
+            state.citykey = window.sessionStorage.citykey ? JSON.parse(window.sessionStorage.citykey).key : '010100000';
+            state.countykey = window.sessionStorage.countykey ? JSON.parse(window.sessionStorage.countykey).key : '010101000';
         },
         changekey(state,param){
             if(param.type === "prov"){
@@ -62,9 +64,9 @@ export default {
             }
         },
         saveCity(state){
-            window.sessionStorage.provkey = state.provkey;
-            window.sessionStorage.citykey = state.citykey;
-            window.sessionStorage.countykey = state.countykey;
+            window.sessionStorage.provkey = JSON.stringify({key:state.provkey,name:state.areaList.province_list[state.provkey]});
+            window.sessionStorage.citykey = JSON.stringify({key:state.citykey,name:state.areaList.city_list[state.citykey]});
+            window.sessionStorage.countykey = JSON.stringify({key:state.countykey,name:state.areaList.county_list[state.countykey]});
         }
     },
     actions: {

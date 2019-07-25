@@ -57,7 +57,7 @@ export default {
     background: #fff;
     left: 0;
     bottom: 0;
-    z-index: 2000;
+    z-index: 99;
     border-top: 1px solid #ccc;
     }
 #footer ul{

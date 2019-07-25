@@ -7,7 +7,8 @@ import type from "@/router/type"
 import card from "@/router/card"
 import shopcar from "@/router/shopcar"
 import mine from "@/router/mine"
-
+import detail from "@/router/detail"
+import wc from "@/router/wc"
 
 
 Vue.use(Router)
@@ -23,7 +24,8 @@ export default new Router({
     card,
     shopcar,
     mine,
-    
+    detail,
+    wc,
     {
       path:"**",
       redirect:"/home"
