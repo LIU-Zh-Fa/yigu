@@ -8,7 +8,8 @@ import card from "@/router/card"
 import shopcar from "@/router/shopcar"
 import mine from "@/router/mine"
 
-
+//二级路由
+import searchgoods from "@/router/type/searchgoods"
 
 Vue.use(Router)
 export default new Router({
@@ -24,6 +25,8 @@ export default new Router({
     shopcar,
     mine,
     
+
+    searchgoods,
     {
       path:"**",
       redirect:"/home"

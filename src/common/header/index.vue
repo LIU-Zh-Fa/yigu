@@ -22,7 +22,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 $color:rgb(255, 255, 255);
 
 .header{
