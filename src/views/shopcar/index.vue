@@ -12,7 +12,7 @@
                 </div>
                 <div class="info">
                     <h5><span>{{item.goodName}}</span><v-touch tag="i" @tap="goodDel(item.goodid)" class="iconfont">&#xe63d;</v-touch></h5>
-                    <div class="spec"><span>次日达</span><span>{{item.goodSpec}}</span></div>
+                    <div class="spec"><span>次日达</span><span v-if="item.goodSpec">{{item.goodSpec}}</span></div>
                     <div class="price">
                         <p>{{item.goodPrice | price}}</p>
                         <div>

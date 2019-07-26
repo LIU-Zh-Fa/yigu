@@ -22,6 +22,13 @@ module.exports = {
                     "^/wochu":""
                 }
             },
+            "/wwochu":{
+                "target":"http://wmall.wochu.cn",
+                "changeOrigin":true,
+                "pathRewrite":{
+                    "^/wwochu":""
+                }
+            },
         }
     }
 }
