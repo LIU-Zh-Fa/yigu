@@ -60,13 +60,11 @@
 </template>
 
 <script>
+import Vuex from 'vuex'
 export default {
     data(){
-        return{
-            parentList:[],
-            tjList:[],
-            menuList:[],
-            menuId: -1,
+        return {
+            menuId: -1
         }
     },
     methods:{
@@ -76,52 +74,26 @@ export default {
         goActive(urlType,url,name){
             if(urlType === "1"){
                 var actId = url.split("?")[1].split("=")[1];
-                // this.$router.push("/list/active/"+actId);
+                this.$router.push("/wc/list/active/"+actId);
             }else if(urlType === "3"){
-                // this.$router.push("/list/tjlist/"+name);
+                this.$router.push("/wc/list/tjlist/"+name);
             }
         },
         goGoodList(parentId,menuid){
-            // this.$router.push("/list/goodlist/"+parentId+"/"+menuid);
-        }
+            this.$router.push("/wc/list/goodlist/"+parentId+"/"+menuid);
+        },
+        ...Vuex.mapActions({
+            getData: "WcType/getData"
+        })
     },
     created(){
-        this.$axios.get("/wochu//client/v1/goods/GetCategoryRecommendList").then((res)=>{
-            var obj = {checkicon: "",
-                description: "",
-                displayIndex: -1,
-                id: -1,
-                menu: 1,
-                name: "推荐",
-                parentId: 0,
-                path: "/",
-                uncheckicon: ""
-            }
-            this.parentList.unshift(obj);
-            this.tjList = res.data.data;
-        });
-        this.$axios.get("/wochu/client/v1/goods/GetCategoryListByMenuId",{
-            params:{
-                parameters: {"menu":0}
-            }
-        }).then((res)=>{
-            var list = res.data.data.sort((a,b) => {
-                return a.parentId - b.parentId;
-            });
-            var parentId = ''
-            list.forEach(item => {
-                if(item.parentId != 0){
-                    if(parentId !== item.parentId){
-                        this.menuList.push({parentId:item.parentId,list:[]});
-                        this.menuList[this.menuList.length -1 ].list.push(item);
-                        parentId = item.parentId;
-                    }else{
-                        this.menuList[this.menuList.length -1 ].list.push(item);
-                    }
-                }else{
-                    this.parentList.push(item);
-                }
-            });
+        this.getData()
+    },
+    computed: {
+        ...Vuex.mapState({
+            parentList: state=>state.WcType.parentList,
+            tjList: state=>state.WcType.tjList,
+            menuList: state=>state.WcType.menuList,
         })
     }
 }
@@ -198,6 +170,8 @@ export default {
                         background: #fff;
                         text-align: center;
                         overflow: hidden;
+                        font-size: 14px;
+                        font-weight: bold;
                     }
                     >div{
                         overflow: hidden;
@@ -221,6 +195,7 @@ export default {
                         img{
                             width: 1rem;
                             height: 1rem;
+                            display: inline-block;
                         }
                         p{
                             height: .86rem;
