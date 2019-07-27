@@ -173,7 +173,7 @@ $color: #f0f2f5;
       }
     }
     .historyListBox {
-      min-height: 1.5rem;
+      min-height: 4rem;
     }
     .clearBtn {
       border: 1px solid #d9d9d9;
