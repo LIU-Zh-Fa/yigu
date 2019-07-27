@@ -189,6 +189,15 @@ export default {
                         font-size: 14px;
                         position: relative;
                         height: .75rem;
+                        padding-right: .3rem;
+                        width: 100%;
+                        span{
+                            display:-webkit-box;
+                            -webkit-box-orient:vertical;
+                            -webkit-line-clamp:2;
+                            overflow:hidden;
+                            width: 100%;
+                        }
                         .iconfont{
                             position: absolute;
                             right: 0;
