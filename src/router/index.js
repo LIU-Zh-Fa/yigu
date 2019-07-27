@@ -34,7 +34,7 @@ export default new Router({
     searchgoods,
     {
       path:"**",
-      redirect:"/home"
+      redirect:"/home/home2"
     }
   ],
 })
