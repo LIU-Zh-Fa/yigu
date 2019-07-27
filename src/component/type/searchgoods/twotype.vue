@@ -1,7 +1,7 @@
 <template>
   <BScroll ref="goodswrap">
     <div class="conBox">
-      <div class="goodsBox" v-for="(item,index) in goodsList" :key="index">
+      <router-link tag="div" :to="'/detail/'+item.id" class="goodsBox" v-for="(item,index) in goodsList" :key="index">
         <!-- pic -->
         <div class="goodsPic">
           <img :src="item.bigImg" alt>
@@ -18,10 +18,10 @@
 
           <div class="goodsPrice">
             <span class="price">¥{{item.mallPrice.toFixed(2)}}</span>
-            <i class="addCar iconfont icon-gouwuche"></i>
+            <i  @click.stop="addCar(index)" class="addCar iconfont icon-gouwuche"></i>
           </div>
         </div>
-      </div>
+      </router-link>
     </div>
   </BScroll>
 </template>
@@ -30,7 +30,7 @@ import Vuex, { mapActions } from "vuex";
 import { type } from "os";
 export default {
   activated() {
-    this.getgoods();
+    // this.getgoods();
   },
   mounted() {
     this.$refs.goodswrap.getseaGoodsMore();
@@ -54,8 +54,21 @@ export default {
   },
   methods: {
     ...mapActions({
-      getgoods: "type/getseaGoodsList"
-    })
+      // getgoods: "type/getseaGoodsList"
+    }),
+    addCar(index){
+      let obj ={
+                goodid: this.goodsList[index].id,
+                goodName: this.goodsList[index].goodsName,
+                goodPrice: this.goodsList[index].mallPrice,
+                goodImg: this.goodsList[index].bigImg,
+                goodSpec: this.goodsList[index].goodsStandard,
+                num: 1,
+                type: "yigu"
+      }
+      console.log(obj)
+      this.$store.dispatch("Shopcar/addCar",obj)
+    }
   }
 };
 </script>
@@ -64,7 +77,7 @@ $color: #f0f2f5;
 // goods
 .conBox {
   background: $color;
-  margin-top: 1.54rem;
+  padding-top: 1.54rem;
   overflow: auto;
   .goodsBox {
     width: 3.53rem;
@@ -128,6 +141,7 @@ $color: #f0f2f5;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        position: relative;
         .price {
           color: red;
           font-size: 18px;
@@ -138,6 +152,9 @@ $color: #f0f2f5;
           font-size: 22px;
           margin: 1px;
           border-radius: 50%;
+          position: absolute;
+          right: .1rem;
+          // z-index: 1000
         }
       }
     }

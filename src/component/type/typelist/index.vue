@@ -13,13 +13,14 @@
               ref="all"
               tag="li"
             >全部</v-touch>
+            <div v-if="conNav[navIndex]" class="lala">
             <v-touch
               v-for="(item,index) in conNav[navIndex].bcProductTypeEos"
               :class="index==navHindex ? 'activeRed' : ''"
               @tap="navBoxIndex({index:index,id:item.tid})"
               tag="li"
               :key="index"
-            >{{item.tname}}</v-touch>
+            >{{item.tname}}</v-touch></div>
           </ul>
         </BScroll>
       </div>
@@ -32,7 +33,7 @@
           <v-touch
             v-for="(item,idx) in conNav"
             :key="idx"
-            :class="idx==navIndex ? 'activeBlack' : ''"
+            :class=" HXactiveId==item.tid ? 'activeBlack' : ''"
             @tap="getNavIndex({idx:idx,id:item.tid})"
             tag="li"
           >{{item.tname}}</v-touch>
@@ -44,7 +45,13 @@
         <div class="scrollBox">
           <BScroll ref="goodswrap">
             <div class="conMain">
-              <div class="goodsList" v-for="(item,index) in goodsList" :key="index">
+              <router-link
+                tag="div"
+                :to="'/detail/'+item.id"
+                class="goodsList"
+                v-for="(item,index) in goodsList"
+                :key="index"
+              >
                 <div class="goodsPic">
                   <img :src="item.bigImg" alt>
                 </div>
@@ -59,10 +66,10 @@
                   </div>
                   <div class="price-cart flx">
                     <i class="goods-price flx-1">¥{{item.salePrice.toFixed(2)}}</i>
-                    <i class="iconfont icon-gouwucheman add-cart"></i>
+                    <i class="iconfont icon-gouwucheman add-cart" @click.stop="addCar(index)"></i>
                   </div>
                 </div>
-              </div>
+              </router-link>
             </div>
           </BScroll>
         </div>
@@ -94,6 +101,7 @@ export default {
       navIndex: state => state.type.navIndex,
       navHindex: state => state.type.navBoxIndex,
       tId: state => state.type.tId,
+      HXactiveId: state => state.type.HXactiveId,
       allId: state => state.type.allId,
       pageNo: state => state.type.pageNo
     })
@@ -102,9 +110,6 @@ export default {
     tId() {
       this.getgoodsInfo();
     },
-    // pageNo(){
-    //   this.$refs.goodswrap.getGoodsMore();
-    // },
     goodsList() {
       this.$refs.goodswrap.update();
     }
@@ -144,7 +149,22 @@ export default {
     },
     changeIndex() {
       this.$store.commit("type/changeIndex");
-    }
+    },
+    addCar(index) {
+      let obj = {
+        goodid: this.goodsList[index].id,
+        goodName: this.goodsList[index].goodsName,
+        goodPrice: this.goodsList[index].mallPrice,
+        goodImg: this.goodsList[index].bigImg,
+        goodSpec: this.goodsList[index].goodsStandard,
+        num: 1,
+        type: "yigu"
+      };
+      this.$store.dispatch("Shopcar/addCar", obj);
+    },
+    // homeActive(id){
+    //   this.$store.dispatch("type/homeActive",id)
+    // }
   }
 };
 </script>
@@ -152,6 +172,10 @@ export default {
 $color: rgb(255, 255, 255);
 .type {
   height: 100%;
+}
+.lala{
+  display: flex;
+  width:max-content;
 }
 .navBox {
   height: 0.76rem;
@@ -273,6 +297,7 @@ $color: rgb(255, 255, 255);
           display: flex;
           justify-content: space-between;
           align-items: center;
+          position: relative;
           .goods-price {
             color: red;
             font-size: 0.36rem;
@@ -285,6 +310,8 @@ $color: rgb(255, 255, 255);
             font-size: 0.32rem;
             padding: 0.08rem;
             border-radius: 50%;
+            position: absolute;
+            right: 0.1rem;
           }
         }
       }

@@ -17,7 +17,7 @@ export default {
   },
   methods: {
       back(){
-          this.$router.back()
+          this.$router.go(-1)
       },
       openMask(){
           this.$refs.mymask.openMask();
@@ -44,6 +44,11 @@ $color:rgb(255, 255, 255);
     h2{
         font-size: .28rem;
         color:#444;
+        width: 3rem;
+        text-align: center;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
     i{
         position: absolute;

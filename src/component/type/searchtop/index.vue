@@ -3,9 +3,10 @@
     <i @click="back" class="iconfont icon-jiantou3 back"></i>
     <div class="searchbox">
       <span class="iconfont icon-iconset0157 searchfont"></span>
-      <input type="text" :placeholder=hotList[0] @focus="changesearchFlag">
+      <input type="text" :placeholder="hotList[0]" @focus="changesearchFlag">
     </div>
-    <u class="iconfont icon-gengduo2"></u>
+    <u class="iconfont icon-gengduo2" @click="openMask"></u>
+    <MyMask ref="mymask"/>
   </div>
 </template>
 
@@ -18,13 +19,16 @@ export default {
     },
     changesearchFlag() {
       this.$store.commit("type/changesearchFlag");
+    },
+    openMask() {
+      this.$refs.mymask.openMask();
     }
   },
   computed: {
     ...Vuex.mapState({
       hotList: state => state.type.hotList
     })
-  },
+  }
 };
 </script>
 <style lang="scss" scoped>
