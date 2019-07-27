@@ -37,14 +37,16 @@ export default {
         },
     },
     watch:{
-        goodid(newVla){
+        goodid(){
             this.getData();
         },
-        list(){
+        list(newVal){
             this.$nextTick(()=>{
-                if(!this.mySwiper){
+                if(!this.mySwiper && newVal){
                     this.mySwiper = new Swiper ('.goodswiper', {
                         loop: true, // 循环模式选项
+                        observer:true,//修改swiper自己或子元素时，自动初始化swiper 
+                        observeParents:true,//修改swiper的父元素时，自动初始化swiper 
                         autoplay: {
                             delay: 4000,
                             disableOnInteraction: false,
@@ -56,9 +58,11 @@ export default {
                         }
                     })
                 }else{
-                    this.mySwiper.update()
+                    if(!newVal){
+                        this.mySwiper.destroy()
+                        this.mySwiper = ''
+                    }
                 }
-                
             })
         }
     }
