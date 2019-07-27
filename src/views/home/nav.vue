@@ -3,13 +3,13 @@
       <div class="seach">
         <div class="seach_div">
             <div class="iconfont">&#xe62f;</div>
-            <input type="text" placeholder="桃子" @click="goseach">
+            <v-touch tag="input" type="text" placeholder="桃子" @tap="goseach"/>
         </div>
       </div>
       <div class="border">
           <img :src="img" alt="" class="img1">
           <ul>
-            <li v-for="(item,index) in list" :key="index">
+            <v-touch tag="li" v-for="(item,index) in list" :key="index" @tap="goxiangqing(item.goodid)">
               <img v-lazy="item.goodImg" alt="">
               <p>{{item.goodName}}</p>
               <p style="font-size:.2rem;color: #939393;">{{item.slogan}}</p>
@@ -19,7 +19,7 @@
                 ￥{{item.goodPrice}}
                 <i class="iconfont i"> &#xe600; </i> 
               </div>
-            </li>
+            </v-touch>
           </ul>
       </div>
     </div>
@@ -38,8 +38,11 @@ export default {
     }
   },
     methods: {
+      goxiangqing(obj){
+      this.$router.push("/detail/"+obj)
+      }, 
       goseach(){
-        // this.$router.push("/home/nav/0200000000")
+        this.$router.push("/searchgoods")
       },
       init(){
         this.list.length = 0;
@@ -61,8 +64,6 @@ export default {
               slogan:element.slogan
             })
           });
-          console.log(this.list);
-          
         })
 
       }

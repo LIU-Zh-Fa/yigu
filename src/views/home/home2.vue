@@ -1,11 +1,13 @@
 <template>
   <div class="home">
+    
     <div class="seach">
       <div class="seach_div">
         <div class="iconfont">&#xe62f;</div>
-        <input type="text" placeholder="桃子" @click="goseach" />
+       <v-touch tag="input" type="text" placeholder="桃子" @tap="goseach"/>
       </div>
     </div>
+    <HomeSeacher ></HomeSeacher>
     <Banner></Banner>
     <ul class="nav1">
       <li v-for="(item,index) in list2" :key="index">
@@ -14,18 +16,18 @@
       </li>
     </ul>
     <ul class="nav2">
-      <li v-for="(item,index) in list" :key="index">
+      <v-touch tag="li" v-for="(item,index) in list" :key="index" @tap="gotype(item.tid)">
         <div class="nav2_img">
           <img v-lazy="item.timage" alt />
         </div>
         <div>{{item.tname}}</div>
-      </li>
-      <li>
+      </v-touch>
+      <v-touch tag="li" @tap="gotype(1)">
         <div class="nav2_img">
           <img src="http://oss.egu365.com/upload/mobile-all-categories.jpg" alt />
         </div>
         <div>全部分类</div>
-      </li>
+      </v-touch>
     </ul>
     <div class="notice-wrap">
       <div class="notice-1">
@@ -39,32 +41,32 @@
       <div class="border_top">
         <img src="@/component/home/img/hot_sale_bg.jpg" alt class="early-wrap_img" />
         <div class="early-wrap">
-          <img :src="border[0].bgImg1" alt class="early-wrap_img" />
+          <img :src="border[0].bgImg1" alt class="early-wrap_img"  v-if="show"/>
           <div class="early-show-more">查看更多 》</div>
           <div class="early-goods-wrap">
             <div class="early-goods-head">尝鲜季</div>
             <div class="early-head-desc">购鲜，每月一次的舌尖之旅</div>
           </div>
           <ul class="early-goods-list">
-            <li v-for="(item,index) in border" :key="index">
+            <v-touch tag="li" v-for="(item,index) in border" :key="index" @tap="goxiangqing(item.goodsId)">
               <img v-lazy="item.goodsImg" alt />
               <div>{{item.goodsName}}</div>
-            </li>
+            </v-touch>
           </ul>
         </div>
       </div>
       <div class="border_foot">
-        <img :src="border2[0].bgImg1" alt class="early-wrap_img" />
+        <img :src="border2[0].bgImg1" alt class="early-wrap_img" v-if="show"/>
         <div class="early-goods-wrap">
           <div class="early-goods-head">热销榜</div>
           <div class="early-head-desc">热卖，单品销量名次排行榜</div>
         </div>
         <ul class="early-goods-list">
-          <li v-for="(item,index) in border2" :key="index">
+          <v-touch tag="li" v-for="(item,index) in border2" :key="index" @tap="goxiangqing(item.goodsId)">
             <img v-lazy="item.goodsImg" alt />
             <div>{{item.goodsName}}</div>
             <div style="color:red;font-size:.3rem">￥{{item.mallPrice}}</div>
-          </li>
+          </v-touch>
         </ul>
       </div>
     </div>
@@ -75,14 +77,14 @@
     <img src="@/component/home/img/guess_you_like.jpg" alt style="width:100%;margin-top:-.2rem;" />
     <div class="footer">
       <ul>
-        <li class="footer_div" v-for="(item,index) in footer" :key="index">
+        <v-touch tag="li" v-for="(item,index) in footer" :key="index" @tap="goxiangqing(item.goodid)" class="footer_div">
           <img :src="item.goodImg" alt="">
           <div class="footer_div3">{{item.goodName}}</div>
           <div class="footer_div2">
             ￥{{item.goodPrice}}
           <i class="iconfont i"> &#xe600; </i> 
           </div>
-        </li>
+        </v-touch>
       </ul>
     </div>
   </div>
@@ -92,6 +94,8 @@ import Banner from "@/component/home/banner/index";
 import Banner2 from "@/component/home/banner/nav_swiper";
 import Banner3 from "@/component/home/banner/nav_swiper2";
 import Banner4 from "@/component/home/border-banner";
+import HomeSeacher from "@/component/type/search/index.vue";
+import Vuex from 'vuex'
 export default {
   data() {
     return {
@@ -101,14 +105,25 @@ export default {
       swiper: [],
       border: [],
       border2: [],
-      footer: []
+      footer: [],
+      show:false,
+      show2:true
     };
   },
   components: { Banner, Banner2, Banner3, Banner4 },
-  methods: {
+    methods: {
+    goxiangqing(obj){
+      this.$router.push("/detail/"+obj)
+    },  
     goseach() {
-      // this.$router.push("/home/nav/0200000000")
+     this.show2 = true;
+     this.$router.push("/searchgoods")
     },
+    gotype(id){
+      console.log(id);
+      this.$store.dispatch("type/homeActive",id)
+      this.$router.push("/type")
+    },     
     init() {
       this.$axios
         .get("http://api.egu365.cn/goods/list?sorts=hits+asc&pageNo=1")
@@ -122,7 +137,6 @@ export default {
               goodid: element.id
             });
           });
-          console.log("this.footer", this.footer);
         });
       this.$axios
         .get("http://api.egu365.cn/news/adviseAll?id=95&pageSize=3")
@@ -170,7 +184,7 @@ export default {
               goodsImg: element.bseGoodsEo.goodsImg
             });
           });
-          console.log(this.border);
+          this.show = true;
         });
       this.$axios
         .get("http://api.egu365.cn/news/adviseImg?seat=92")
@@ -215,14 +229,14 @@ export default {
               });
               index++;
             });
-            console.log("this.list", this.list);
           });
         });
     }
   },
   created() {
     this.init();
-  }
+  },
+
 };
 </script>
 <style lang="scss" scoped>
