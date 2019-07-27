@@ -29,10 +29,11 @@ export default {
   mutations: {
     // typeList页面
     //主页面传参高亮
-    homeActive(state,id){
-      state.tId = id;
-      state.HXactiveId = id;
-      window.sessionStorage.setItem("HXactiveId", JSON.stringify(id))
+    homeActive(state,obj){
+      state.tId =obj.id;
+      state.HXactiveId = obj.id;
+      state.navIndex = obj.index;
+      window.sessionStorage.setItem("HXactiveId", JSON.stringify(obj.id))
     },
 
     //竖向
@@ -227,8 +228,8 @@ sortHandler(state,val){
 
 
     // 主页面传参
-    homeActive({commit},id){
-      commit("homeActive",id)
+    homeActive({commit},obj){
+      commit("homeActive",obj)
     }
   },
   namespaced: true
