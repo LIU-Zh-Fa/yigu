@@ -7,7 +7,6 @@
        <v-touch tag="input" type="text" placeholder="桃子" @tap="goseach"/>
       </div>
     </div>
-    <HomeSeacher ></HomeSeacher>
     <Banner></Banner>
     <ul class="nav1">
       <li v-for="(item,index) in list2" :key="index">
@@ -16,7 +15,7 @@
       </li>
     </ul>
     <ul class="nav2">
-      <v-touch tag="li" v-for="(item,index) in list" :key="index" @tap="gotype(item.tid)">
+      <v-touch tag="li" v-for="(item,index) in list" :key="index" @tap="gotype({id:item.tid,index:index})">
         <div class="nav2_img">
           <img v-lazy="item.timage" alt />
         </div>
@@ -97,6 +96,9 @@ import Banner4 from "@/component/home/border-banner";
 import HomeSeacher from "@/component/type/search/index.vue";
 import Vuex from 'vuex'
 export default {
+  watch: {
+  '$route':'Showwatch'
+  },
   data() {
     return {
       list: [],
@@ -106,8 +108,7 @@ export default {
       border: [],
       border2: [],
       footer: [],
-      show:false,
-      show2:true
+      show:false
     };
   },
   components: { Banner, Banner2, Banner3, Banner4 },
@@ -116,14 +117,17 @@ export default {
       this.$router.push("/detail/"+obj)
     },  
     goseach() {
-     this.show2 = true;
      this.$router.push("/searchgoods")
     },
-    gotype(id){
-      console.log(id);
-      this.$store.dispatch("type/homeActive",id)
+    gotype(obj){
+      if(obj !== 1){
+        this.$store.dispatch("type/homeActive",obj)
+      }
       this.$router.push("/type")
-    },     
+    },   
+    Showwatch(){
+      this.show = false;
+    },
     init() {
       this.$axios
         .get("http://api.egu365.cn/goods/list?sorts=hits+asc&pageNo=1")
@@ -216,7 +220,8 @@ export default {
               id: element.id
             });
           });
-          this.$axios.get("http://api.egu365.cn/goods/classify").then(data => {
+          this.$axios.get("http://api.egu365.cn/goods/classify")
+          .then(data => {
             let index = 0;
             data.data.list.forEach(element => {
               this.list.push({
