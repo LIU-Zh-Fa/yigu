@@ -3,14 +3,14 @@
     <img :src="this.bgImg1" alt="">
     <div class="header"> 查看更多 》</div>
     <ul>
-      <li v-for="(item,index) in list" :key="index">
+      <v-touch tag="li" v-for="(item,index) in list" :key="index" @tap="goxiangqing(item.goodId)">
         <img v-lazy="item.goodImg" alt="">
         <div class="p">{{item.goodName}}</div>
         <div style="color:red;font-size:.32rem">
           ￥{{item.goodPrice}}
           <i class="iconfont i"> &#xe600; </i> 
         </div>
-      </li>
+      </v-touch>
       <li style="text-align:center;line-height:3rem;">
         查看更多 >
       </li>
@@ -33,6 +33,10 @@ export default {
     }
   },
   methods: {
+    goxiangqing(obj){
+
+      this.$router.push("/detail/"+obj)
+    },  
     init(){      
       this.$axios .get("http://api.egu365.cn/news/adviseGoods?seat="+this.id)
       .then((data) => {

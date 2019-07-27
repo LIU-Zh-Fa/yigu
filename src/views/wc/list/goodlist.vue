@@ -10,14 +10,18 @@
                 <p>67</p>
             </div>
             <h2>{{tit}}</h2>
-            <ul>
-                <li 
-                    v-for="(goodlist,index) in allgoodlist" 
-                    :key="index"
-                    :class="{'active':menuid == goodlist.id}"
-                    @click="chengemenuid(goodlist.id)"
-                >{{goodlist.name}}</li>
-            </ul>
+            <div class="menuScroll">
+                <BScroll ref="menuScroll">
+                    <ul ref="menuUl">
+                        <v-touch tag="li"
+                            v-for="(goodlist,index) in allgoodlist" 
+                            :key="index"
+                            :class="{'active':menuid == goodlist.id}"
+                            @tap="chengemenuid(index,goodlist.id)"
+                        >{{goodlist.name}}</v-touch>
+                    </ul>
+                </BScroll>
+            </div>
             <div class="order">
                 <v-touch tag="div" :class="{'active':order === 1}" @tap="changeorder('no')">特惠</v-touch>
                 <v-touch tag="div" :class="{'active':order !== 1}" @tap="changeorder()">价格<span
@@ -73,8 +77,14 @@ export default {
         back(){ 
             this.$router.go(-1);
         },
-        chengemenuid(id){
+        chengemenuid(index,id){
             this.menuid = id;
+            let t = this.$refs.menuScroll.$children[index].$el.offsetLeft;
+            let w = window.innerWidth;
+            let uw = this.$refs.menuUl.offsetWidth;
+            let lw = this.$refs.menuScroll.$children[index].$el.offsetWidth;
+            let obj = { t, w, uw, lw };
+            this.$refs.menuScroll.handleTo(obj);
         },
         changeorder(type){
             if(type === 'no'){
@@ -161,24 +171,28 @@ export default {
                     text-align: center;
                 }
             }
-            ul{
-                width: 100%;
-                box-sizing: border-box;
-                overflow: auto;
-                display: flex;
-                font-size: 14px;
-                border-bottom: 1px solid #ddd;
-                box-sizing: border-box;
+            .menuScroll{
                 height: 1rem;
-                li{
-                    flex-shrink: 0;
-                    line-height: 1rem;
-                    text-align: center;
-                    padding: 0 .3rem;
+                width: 100%;
+                ul{
+                    width: max-content;
                     box-sizing: border-box;
-                    &.active{
-                        color: #6eb042;
-                        border-bottom: .04rem solid #6eb042;
+                    overflow: auto;
+                    display: flex;
+                    font-size: 14px;
+                    border-bottom: 1px solid #ddd;
+                    box-sizing: border-box;
+                    height: 1rem;
+                    li{
+                        flex-shrink: 0;
+                        line-height: 1rem;
+                        text-align: center;
+                        padding: 0 .3rem;
+                        box-sizing: border-box;
+                        &.active{
+                            color: #6eb042;
+                            border-bottom: .04rem solid #6eb042;
+                        }
                     }
                 }
             }

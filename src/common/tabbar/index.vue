@@ -16,7 +16,7 @@ export default {
       tabbar: [
         {
           title: "首页",
-          path: "/home",
+          path: "/home/home2",
           icon: "&#xe626;"
         },
         {
